@@ -1,0 +1,106 @@
+ body { background-color: #fcfcfc; color: #1a1a1a; font-family: 'Helvetica Neue', Arial, sans-serif; }
+        
+        /* Color Rojo del CSS anterior */
+        .bg-red-brand { background-color: #e30613; }
+        .text-red-brand { color: #e30613; }
+        
+        .station-card {
+            background: white;
+            border-radius: 0; /* Estilo Adidas/Marca: más cuadrado */
+            border: 1px solid #eee;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        .header-section {
+            background: #e30613; /* Rojo solicitado */
+            color: white;
+            padding: 40px 30px;
+            text-transform: uppercase;
+            font-style: italic;
+        }
+
+        .price-badge {
+            background: #fff;
+            border: 1px solid #e2e3e4;
+            padding: 20px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: transform 0.2s;
+        }
+
+        .price-badge:hover {
+            border-color: #e30613;
+        }
+
+        .price-value {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: #000;
+        }
+
+        .info-label {
+            font-weight: 800;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            color: #e30613;
+            display: block;
+            letter-spacing: 1px;
+        }
+
+        .service-icon {
+            font-size: 1.3rem;
+            margin-right: 15px;
+            color: #000;
+        }
+
+        /* Contenedor de la Gráfica */
+        .chart-container {
+            background: #f8f9fa;
+            border: 1px solid #eee;
+            padding: 30px;
+            margin-top: 30px;
+        }
+
+        .chart-placeholder {
+            width: 100%;
+            height: 250px;
+            border-bottom: 2px solid #000;
+            border-left: 2px solid #000;
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            padding-top: 20px;
+        }
+
+        /* Simulación de gráfica con CSS */
+        .bar {
+            width: 40px;
+            background: #e30613;
+            transition: height 0.5s;
+            position: relative;
+        }
+        .bar::after {
+            content: attr(data-date);
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.7rem;
+            color: #666;
+            white-space: nowrap;
+        }
+
+        .btn-back {
+            text-decoration: none;
+            color: #000;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: inline-flex;
+            align-items: center;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+        }

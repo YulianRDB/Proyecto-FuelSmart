@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <nav>
+        <div class="brand">FuelSmart ⛽</div>
+        <div class="user-profile"></div>
+    </nav>
+
+    <div class="main-layout">
+
+        <aside class="results-sidebar">
+            <h2 style="margin-bottom: 15px;">3 Gasolineras cerca</h2>
+
+            <div class="filters">
+                <span class="badge active">Más baratas</span>
+                <span class="badge">Abierto ahora</span>
+                <span class="badge">Con tienda</span>
+            </div>
+
+            <div class="gas-card" style="border-color: var(--success); background: #f7fff9;">
+                <div class="best-price-tag">RECOMENDADO</div>
+                <div class="card-header">
+                    <span class="station-name">Gasolinera LowCost</span>
+                    <span class="price">1.39€</span>
+                </div>
+                <p style="color: #666; font-size: 0.9rem;">Calle Industria, 45</p>
+                <div class="details">
+                    <span>🚗 1.2 km</span>
+                    <span style="color: green; font-size: 0.8rem;">● Abierto</span>
+                </div>
+            </div>
+
+            <div class="gas-card">
+                <div class="card-header">
+                    <span class="station-name">Repsol</span>
+                    <span class="price" style="color: #333;">1.45€</span>
+                </div>
+                <p style="color: #666; font-size: 0.9rem;">Av. Constitución, 120</p>
+                <div class="details">
+                    <span>🚗 0.5 km</span>
+                    <span style="color: green; font-size: 0.8rem;">● Abierto</span>
+                </div>
+            </div>
+
+            <div class="gas-card">
+                <div class="card-header">
+                    <span class="station-name">Cepsa</span>
+                    <span class="price" style="color: #d9534f;">1.52€</span>
+                </div>
+                <p style="color: #666; font-size: 0.9rem;">Carretera Norte, Km 5</p>
+                <div class="details">
+                    <span>🚗 3.0 km</span>
+                    <span style="color: orange; font-size: 0.8rem;">● Cierra pronto</span>
+                </div>
+            </div>
+
+            <div class="gas-card">
+                <div class="card-header">
+                    <span class="station-name">Shell</span>
+                    <span class="price" style="color: #333;">1.48€</span>
+                </div>
+                <p style="color: #666; font-size: 0.9rem;">Polígono Sur</p>
+                <div class="details">
+                    <span>🚗 5.2 km</span>
+                    <span style="color: red; font-size: 0.8rem;">● Cerrado</span>
+                </div>
+            </div>
+        </aside>
+
+        <main class="map-area">
+
+            <div class="me" title="Tú estás aquí"></div>
+
+            <div class="pin p1">1.39€</div>
+
+            <div class="pin p2">1.45€</div>
+
+            <div class="pin p3">1.52€</div>
+        </main>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,614 @@
+:root {
+    --primary: #FF4D4D;
+    /* Rojo Gasolina */
+    --dark: #1a1a1a;
+    --light: #f4f7f6;
+    --map-bg: #e6e3df;
+    /* Color típico de fondo de mapas */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+}
+
+body {
+    background-color: white;
+    color: var(--dark);
+}
+
+/* --- 2. NAVBAR --- */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 5%;
+    background: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--primary);
+}
+
+.logo span {
+    color: var(--dark);
+}
+
+.btn-descargar {
+    background: var(--dark);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.btn-descargar:hover {
+    background: #333;
+    transform: scale(1.05);
+}
+
+/* --- 3. SECCIÓN PRINCIPAL (HERO) CON GRID --- */
+.hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    /* Mitad texto, Mitad mapa */
+    gap: 40px;
+    padding: 40px 5%;
+    min-height: 85vh;
+    /* Ocupa casi toda la pantalla */
+    align-items: center;
+}
+
+/* Columna Izquierda: Texto */
+.hero-text h1 {
+    font-size: 3.5rem;
+    line-height: 1.1;
+    margin-bottom: 20px;
+}
+
+.hero-text h1 span {
+    color: var(--primary);
+}
+
+.hero-text p {
+    font-size: 1.2rem;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+.search-box {
+    display: flex;
+    gap: 10px;
+    background: #f0f0f0;
+    padding: 10px;
+    border-radius: 12px;
+    max-width: 400px;
+}
+
+.search-box input {
+    border: none;
+    background: transparent;
+    flex: 1;
+    outline: none;
+    font-size: 1rem;
+}
+
+.btn-search {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+/* --- 4. SIMULACIÓN DEL MAPA (Columna Derecha) --- */
+.map-container {
+    background-color: var(--map-bg);
+    width: 100%;
+    height: 500px;
+    border-radius: 24px;
+    position: relative;
+    /* Para poder posicionar los pines dentro */
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    border: 4px solid white;
+}
+
+/* Dibujamos calles falsas con CSS (Lineas blancas) */
+.calle {
+    position: absolute;
+    background: white;
+}
+
+.calle-1 {
+    width: 100%;
+    height: 15px;
+    top: 30%;
+}
+
+.calle-2 {
+    width: 100%;
+    height: 15px;
+    top: 70%;
+}
+
+.calle-3 {
+    width: 15px;
+    height: 100%;
+    left: 40%;
+}
+
+.calle-4 {
+    width: 15px;
+    height: 100%;
+    left: 75%;
+}
+
+/* El punto azul (TU UBICACIÓN) */
+.user-pin {
+    width: 20px;
+    height: 20px;
+    background-color: #4285F4;
+    border-radius: 50%;
+    border: 3px solid white;
+    position: absolute;
+    top: 68%;
+    left: 38%;
+    /* Posición manual */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    z-index: 10;
+}
+
+/* Efecto de "Radar" o pulso */
+.user-pin::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(66, 133, 244, 0.4);
+    border-radius: 50%;
+    top: 0;
+    left: 0;
+    animation: pulse 2s infinite;
+}
+
+/* El marcador rojo (LA GASOLINERA) */
+.gas-pin {
+    position: absolute;
+    top: 25%;
+    left: 72%;
+    font-size: 2rem;
+    filter: drop-shadow(0 5px 5px rgba(0, 0, 0, 0.3));
+    animation: bounce 2s infinite;
+    cursor: pointer;
+    z-index: 10;
+}
+
+/* Etiqueta de precio simulada */
+.price-tag {
+    position: absolute;
+    top: 18%;
+    left: 72%;
+    transform: translateX(-20%);
+    background: white;
+    padding: 5px 10px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 0.9rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    color: green;
+}
+
+/* Ruta punteada simulada (SVG o borde CSS) */
+.route-line {
+    position: absolute;
+    top: 31%;
+    left: 41%;
+    width: 32%;
+    height: 38%;
+    border-right: 4px dashed #4285F4;
+    border-top: 4px dashed #4285F4;
+    border-radius: 0 20px 0 0;
+    /* Curva la esquina */
+    opacity: 0.6;
+}
+
+/* --- ANIMACIONES --- */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+
+    100% {
+        transform: scale(3);
+        opacity: 0;
+    }
+}
+
+@keyframes bounce {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+/* --- RESPONSIVE (Móvil) --- */
+@media (max-width: 768px) {
+    .hero {
+        grid-template-columns: 1fr;
+        /* Una columna */
+        text-align: center;
+        gap: 20px;
+    }
+
+    .search-box {
+        margin: 0 auto;
+    }
+
+    .map-container {
+        height: 350px;
+    }
+}
+
+
+
+
+/* RESULTADO SIMULADO */
+/* --- 1. CONFIGURACIÓN BASE --- */
+:root {
+    --primary: #FF4D4D;
+    /* Rojo vivo */
+    --success: #28a745;
+    /* Verde precio bueno */
+    --dark: #1a1a1a;
+    /* Negro suave */
+    --gray: #f4f7f6;
+    /* Fondo gris */
+    --border: #e0e0e0;
+    /* Bordes sutiles */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    /* Evita doble scroll */
+}
+
+/* --- 2. NAVBAR SIMPLIFICADO --- */
+nav {
+    height: 60px;
+    background: white;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    justify-content: space-between;
+    z-index: 10;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.brand {
+    font-weight: 800;
+    color: var(--primary);
+    font-size: 1.2rem;
+}
+
+.user-profile {
+    width: 35px;
+    height: 35px;
+    background: #ddd;
+    border-radius: 50%;
+}
+
+/* --- 3. LAYOUT PRINCIPAL (GRID) --- */
+.main-layout {
+    display: grid;
+    grid-template-columns: 400px 1fr;
+    /* 400px lista | Resto mapa */
+    height: calc(100vh - 60px);
+    /* Restamos la altura del nav */
+}
+
+/* --- 4. COLUMNA IZQUIERDA: LISTA DE RESULTADOS --- */
+.results-sidebar {
+    background: white;
+    overflow-y: auto;
+    /* Scroll solo aquí */
+    padding: 20px;
+    border-right: 1px solid var(--border);
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+    /* Sombra sobre el mapa */
+    z-index: 5;
+}
+
+.filters {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    overflow-x: auto;
+    padding-bottom: 5px;
+}
+
+.badge {
+    padding: 6px 12px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    font-size: 0.85rem;
+    cursor: pointer;
+    white-space: nowrap;
+    background: white;
+}
+
+.badge.active {
+    background: var(--dark);
+    color: white;
+    border-color: var(--dark);
+}
+
+/* TARJETAS DE GASOLINERAS */
+.gas-card {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 15px;
+    cursor: pointer;
+    transition: 0.2s;
+    position: relative;
+    background: white;
+}
+
+.gas-card:hover {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    border-color: var(--primary);
+    transform: translateY(-2px);
+}
+
+/* Etiqueta de "Mejor Precio" */
+.best-price-tag {
+    position: absolute;
+    top: -10px;
+    right: 10px;
+    background: var(--success);
+    color: white;
+    font-size: 0.7rem;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}
+
+.station-name {
+    font-weight: bold;
+    color: var(--dark);
+}
+
+.price {
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: var(--success);
+}
+
+.details {
+    color: #666;
+    font-size: 0.9rem;
+    display: flex;
+    gap: 15px;
+    margin-top: 5px;
+}
+
+.details span {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* --- 5. COLUMNA DERECHA: EL MAPA (IMAGEN DE FONDO) --- */
+.map-area {
+    position: relative;
+    overflow: hidden;
+
+    /* Color de fondo gris muy suave */
+    background-color: #f4f7f6;
+
+    /* Crea una cuadrícula de líneas finas (parece un mapa digital) */
+    background-image:
+        linear-gradient(#e1e4e8 1px, transparent 1px),
+        linear-gradient(90deg, #e1e4e8 1px, transparent 1px);
+
+    /* El tamaño de los cuadrados de la rejilla */
+    background-size: 40px 40px;
+}
+
+/* PINES EN EL MAPA */
+.pin {
+    position: absolute;
+    background: var(--primary);
+    color: white;
+    padding: 5px 12px;
+    border-radius: 20px;
+    /* Más redondeado */
+    font-weight: bold;
+    font-size: 0.95rem;
+
+    /* Mejoras visuales para que destaque sobre el mapa */
+    border: 2px solid white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+
+    transform: translate(-50%, -100%);
+    /* Centrar la punta */
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+/* Triangulito del pin */
+.pin::after {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    left: 50%;
+    margin-left: -6px;
+    border-width: 6px;
+    border-style: solid;
+    border-color: var(--primary) transparent transparent transparent;
+}
+
+/* Efecto Hover en el Pin */
+.pin:hover {
+    z-index: 100;
+    transform: translate(-50%, -115%) scale(1.1);
+    background: var(--dark);
+}
+
+.pin:hover::after {
+    border-color: var(--dark) transparent transparent transparent;
+}
+
+/* Posiciones simuladas */
+.p1 {
+    top: 40%;
+    left: 30%;
+    background: var(--success);
+}
+
+/* Barata */
+.p1::after {
+    border-top-color: var(--success);
+}
+
+.p2 {
+    top: 60%;
+    left: 60%;
+}
+
+.p3 {
+    top: 25%;
+    left: 75%;
+}
+
+/* Tu ubicación (Punto Azul) */
+.me {
+    width: 22px;
+    height: 22px;
+    background: #4285F4;
+    border: 3px solid white;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    box-shadow: 0 0 0 10px rgba(66, 133, 244, 0.3);
+    /* Efecto radar */
+    z-index: 2;
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 768px) {
+    .main-layout {
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr;
+    }
+
+    .results-sidebar {
+        height: 50vh;
+        order: 2;
+        border-top: 2px solid var(--border);
+    }
+
+    .map-area {
+        height: 50vh;
+        order: 1;
+    }
+}
+
+
+
+
+/* Parte de las graficas de las gasolineras */
+body {
+    background-color: #f4f7f6;
+    color: #333;
+}
+
+/* Estilo de la tarjeta principal */
+.station-card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    border: none;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.header-section {
+    background: #004a99;
+    color: white;
+    padding: 30px;
+}
+
+.price-badge {
+    background: #f8f9fa;
+    border-left: 4px solid #004a99;
+    padding: 15px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.price-value {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #004a99;
+}
+
+.info-label {
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    color: #6c757d;
+    display: block;
+}
+
+.service-icon {
+    font-size: 1.2rem;
+    margin-right: 10px;
+    color: #004a99;
+}
+
+.btn-back {
+    text-decoration: none;
+    color: #004a99;
+    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
